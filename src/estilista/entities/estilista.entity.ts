@@ -9,7 +9,7 @@ id: number;
 @Column()
 nombre: string;
 
-@Column('simple-array')
-especialidades: string[];
+@Column()
+especialidades: string;
 
 }

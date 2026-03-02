@@ -1,43 +1,44 @@
-import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
-import { Boleta } from './entities/boleta.entity';
-import { InjectRepository } from '@nestjs/typeorm';
-import { DataSource, Repository } from 'typeorm';
-import { CreateBoletaDto } from './dto/create-boleta.dto';
-import { UpdateBoletaDto } from './dto/update-boleta.dto';
-import { User } from 'src/auth/entities/user.entity';
+import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException } from "@nestjs/common";
+import { Cliente } from "./entities/cliente.entity";
+import { InjectRepository } from "@nestjs/typeorm";
+import { DataSource, Repository } from "typeorm";
+import { CreateClienteDto } from "./dto/create-cliente.dto";
+import { UpdateClienteDto } from "./dto/update-cliente.dto";
+import { User } from "src/auth/entities/user.entity";
 
 @Injectable()
-export class BoletaService {
-private readonly logger = new Logger('BoletaService');
+export class ClienteService{
+
+    private readonly logger = new Logger('ClienteService');
     
         constructor(
-            @InjectRepository(Boleta)
-            private boletaRepository : Repository<Boleta>,
+            @InjectRepository(Cliente)
+            private clienteRepository : Repository<Cliente>,
             private readonly dataSource : DataSource,
         ){}
     
-        async create( createBoletaDto: CreateBoletaDto, user: User){
+        async create( createClienteDto: CreateClienteDto, user: User){
             try {
-                const boleta = this.boletaRepository.create(createBoletaDto);
-                await this.boletaRepository.save(boleta);
+                const cliente = this.clienteRepository.create(createClienteDto);
+                await this.clienteRepository.save(cliente);
             } catch (error) {
                 
             }
         }
     
-        findAll(): Promise<Boleta[]> {
-            return this.boletaRepository.find();
+        findAll(): Promise<Cliente[]> {
+            return this.clienteRepository.find();
         }
     
-        findOne(id: number): Promise<Boleta | null> {
-            return this.boletaRepository.findOneBy({id});
+        findOne(id: number): Promise<Cliente | null> {
+            return this.clienteRepository.findOneBy({id});
         }
     
-        async update(id: number, updateBoletaDto : UpdateBoletaDto, user : User){
-            const { ...toUpdate } = updateBoletaDto;
+        async update(id: number, updateClienteDto : UpdateClienteDto, user : User){
+            const { ...toUpdate } = updateClienteDto;
             
-                const boleta = await this.boletaRepository.preload({ id, ...toUpdate });
-                if( !boleta ) throw new NotFoundException(`Boleta con id: ${ id } no encontrado`);
+                const cliente = await this.clienteRepository.preload({ id, ...toUpdate });
+                if( !cliente ) throw new NotFoundException(`Cliente con id: ${ id } no encontrado`);
             
             
                 // Create query runner
@@ -48,7 +49,7 @@ private readonly logger = new Logger('BoletaService');
             
             
                 try {
-                await queryRunner.manager.save( boleta );
+                await queryRunner.manager.save( cliente );
                 await queryRunner.commitTransaction();
                 await queryRunner.release();
             
@@ -68,7 +69,7 @@ private readonly logger = new Logger('BoletaService');
       }
     
        async remove(id: number): Promise<void> {
-          await this.boletaRepository.delete(id);
+          await this.clienteRepository.delete(id);
         }
       
           private handleDBExceptions(error: any){
@@ -79,8 +80,8 @@ private readonly logger = new Logger('BoletaService');
             throw new InternalServerErrorException('Unexpected error, check server logs');
           }
       
-          async deleteAllEtilistas(){
-          const query = this.boletaRepository.createQueryBuilder('boleta');
+          async deleteAllClientes(){
+          const query = this.clienteRepository.createQueryBuilder('cliente');
       
           try {
             return await query
@@ -91,5 +92,4 @@ private readonly logger = new Logger('BoletaService');
             this.handleDBExceptions(error);
           }
         }
-
 }

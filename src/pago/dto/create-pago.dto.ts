@@ -10,7 +10,7 @@ metodo: string;
 monto: number;
 
 @IsDate()
-fechaPago: Date;
+fechaPago: string;
 
 
 }

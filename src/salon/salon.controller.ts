@@ -13,8 +13,8 @@ export class SalonController {
 
   @Post()
   @Auth(ValidRoles.admin)
-  create(@Body() createSalonDto: CreateSalonDto) {
-    return this.salonService.create(createSalonDto);
+  create(@Body() createSalonDto: CreateSalonDto,  @GetUser() user : User) {
+    return this.salonService.create(createSalonDto, user);
   }
 
   @Get()

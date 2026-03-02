@@ -7,7 +7,7 @@ export class CreateEstilistaDto {
     nombre: string;
 
     @IsString()
-    especialidades: string[];
+    especialidades: string;
 
 
 

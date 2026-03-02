@@ -10,7 +10,13 @@ id: number;
 nombre: string;
 
 @Column()
+rut: string;
+
+@Column()
 telefono: string;
+
+@Column()
+direccion: string;
 
 @Column()
 correo: string;

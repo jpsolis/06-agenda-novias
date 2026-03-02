@@ -13,6 +13,6 @@ metodo: string;
 monto: number;
 
 @Column()
-fechaPago: Date;
+fechaPago: string;
 
 }

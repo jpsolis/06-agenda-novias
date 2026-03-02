@@ -6,17 +6,23 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { Salon } from './salon/entities/salon.entity';
 import { ConfigModule } from '@nestjs/config';
-import { AuthModule } from './auth/auth.module';
 import { join } from 'path';
-import { DataSource } from 'typeorm';
-import { Estilista } from './estilista/entities/estilista.entity';
+
 import { User } from './auth/entities/user.entity';
-import { EstilistaModule } from './estilista/estilista.module';
 import { SeedModule } from './seed/seed.module';
 import { ServicioModule } from './servicio/servicio.module';
 import { BoletaModule } from './boleta/boleta.module';
 import { ItemboletaModule } from './itemboleta/itemboleta.module';
 import { PagoModule } from './pago/pago.module';
+import { TratamientoModule } from './tratamiento/tratamiento.module';
+import { Cliente } from './cliente/entities/cliente.entity';
+import { EventoModule } from './evento/evento.module';
+import { Evento } from './evento/entity/evento-entity';
+import { ItemBoleta } from './itemboleta/entities/itemboleta.entity';
+import { Pago } from './pago/enitities/pago.entity';
+import { Estilista } from './estilista/entities/estilista.entity';
+import { DataSource } from 'typeorm';
+import { Boleta } from './boleta/entities/boleta.entity';
 
 @Module({
   imports: [SalonModule,
@@ -27,7 +33,7 @@ import { PagoModule } from './pago/pago.module';
       username: 'root',
       password: 'Mon.chi2020.2025',
       database: 'db_agenda_novias',
-      entities: [Salon, Estilista, User],
+      entities: [Salon, Estilista, User, Cliente, Evento, ItemBoleta, Pago, Boleta],
       autoLoadEntities: true,
     
       /* Warning Setting synchronize: true shouldn't be used in production - otherwise you can lose production data.*/
@@ -51,12 +57,20 @@ import { PagoModule } from './pago/pago.module';
 
     PagoModule,
 
+    TratamientoModule,
+
+    EventoModule,
+
+
 
 
   
 
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
+  exports: [],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private dataSource: DataSource){}
+}

@@ -18,7 +18,7 @@ export class SalonService {
         private readonly dataSource : DataSource,
     ){}
 
-    async create( createSalonDto: CreateSalonDto){
+    async create( createSalonDto: CreateSalonDto, user: User){
         try {
             const salon = this.salonRepository.create(createSalonDto);
             await this.salonRepository.save(salon);

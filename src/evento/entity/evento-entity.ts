@@ -1,22 +1,21 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-
-@Entity({name: 'servicios'})
-export abstract class Servicios {
+@Entity({name:'evento'})
+export class Evento{
 
 @PrimaryGeneratedColumn()
 id: number;
 
 @Column()
-nombre: string;
+fechaEvento: string;
 
 @Column()
-duracion: number;
+horaEvento: string;
 
 @Column()
-precio: number;
+lugarEvento: string;
 
 @Column()
-descripcion: string;
+observaciones: string;
 
 }

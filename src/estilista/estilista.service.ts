@@ -18,7 +18,7 @@ export class EstilistaService {
         private readonly dataSource : DataSource,
     ){}
 
-    async create( createEstilistaDto: CreateEstilistaDto){
+    async create( createEstilistaDto: CreateEstilistaDto, user: User){
         try {
             const estilista = this.estilistaRepository.create(createEstilistaDto);
             await this.estilistaRepository.save(estilista);
@@ -81,7 +81,7 @@ export class EstilistaService {
         throw new InternalServerErrorException('Unexpected error, check server logs');
       }
   
-      async deleteAllEtilistas(){
+      async deleteAllEstilistas(){
       const query = this.estilistaRepository.createQueryBuilder('estilista');
   
       try {

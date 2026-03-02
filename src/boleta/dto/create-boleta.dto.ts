@@ -1,8 +1,8 @@
-import { IsDateString, IsNumber, IsString } from "class-validator";
+import { IsNumber, IsString } from "class-validator";
 
 export class CreateBoletaDto {
 
-@IsDateString()
+@IsString()
 fecha: string;
 
 @IsNumber()
@@ -15,6 +15,6 @@ impuesto: number;
 total: number;
 
 @IsString()
-estadoPago: number;
+estadoPago: string;
 
 }

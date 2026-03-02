@@ -12,9 +12,9 @@ export class EstilistaController {
  constructor(private readonly estilistaService: EstilistaService) {}
 
   @Post()
-  @Auth(ValidRoles.admin)
-  create(@Body() createEstilistaDto: CreateEstilistaDto) {
-    return this.estilistaService.create(createEstilistaDto);
+  @Auth(ValidRoles.admin )
+  create(@Body() createEstilistaDto: CreateEstilistaDto, @GetUser() user : User ) {
+    return this.estilistaService.create(createEstilistaDto, user );
   }
 
   @Get()
